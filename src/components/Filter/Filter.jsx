@@ -1,22 +1,23 @@
-import PropTypes from 'prop-types';
-import css from "./Filter.module.css";
+import { useDispatch } from 'react-redux';
+import { filterContact } from '../../redux/filter';
+import css from './Filter.module.css';
 
-export default function Filter({ value, onChange }) {
-    return (
-        <label className={css.label}>
-            Find contacts by name:
+const Filter = () => {
+  const dispatch = useDispatch();
+  return (
+    <>
+        <label className={css.label}>Find contacts by name
             <input
                 className={css.input}
                 type="text"
-                value={value}
-                onChange={onChange}
-                title="type serched name or surname"
+                onChange={e => {
+                const action = filterContact(e.target.value);
+                dispatch(action);
+                }}
             />
         </label>
-    );
-}
-
-Filter.propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    </>
+  );
 };
+
+export default Filter;
